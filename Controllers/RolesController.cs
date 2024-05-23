@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")] // check it if it's correct
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class RolesController : ControllerBase
@@ -30,7 +30,7 @@ namespace API.Controllers
             }
 
             var roleExist = await _roleManager.RoleExistsAsync(createRoleDto.RoleName);
-            
+
             if (roleExist)
             {
                 return BadRequest("Role already exist!");
@@ -46,12 +46,10 @@ namespace API.Controllers
             return BadRequest("Role creation failed");
         }
 
-        [AllowAnonymous] //check it later
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoleResponseDto>>> GetRoles()
         {
-            // list of users with total user count
-
             var roles = await _roleManager.Roles.Select(r => new RoleResponseDto
             {
                 Id = r.Id,
@@ -65,7 +63,6 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRole(string id)
         {
-            // find role by their id
             var role = await _roleManager.FindByIdAsync(id);
             if (role is null)
             {

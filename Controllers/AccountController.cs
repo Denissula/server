@@ -14,9 +14,9 @@ using RestSharp;
 
 namespace API.Controllers
 {
-    [Authorize] // remove it later
+    [Authorize]
     [ApiController]
-    [Route("api/[controller]")] // api/account
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -33,8 +33,7 @@ namespace API.Controllers
             _configuration = configuration;
         }
 
-        // api/account/register
-        [AllowAnonymous] // remove it later
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<string>> Register(RegisterDto registerDto)
         {
@@ -75,8 +74,7 @@ namespace API.Controllers
             });
         }
 
-        //api/account/login
-        [AllowAnonymous] // remove it later
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
         {
@@ -352,7 +350,6 @@ namespace API.Controllers
             return Convert.ToBase64String(randomNumber);
         }
 
-        //api/account/detail
         [Authorize]
         [HttpGet("detail")]
         public async Task<ActionResult<UserDetailDto>> GetUserDetails()
